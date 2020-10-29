@@ -5,8 +5,9 @@
 
 <h1 class="text-center">Edit Artikel </h1>
 
-<form action="/article" class="m-5" method="POST">
+<form action="/article/{{$article->id}}" class="m-5" method="POST">
     @csrf
+    @method('PUT')
     <div class="form-group">
       <label for="title">Judul</label>
       <input type="text" class="form-control" id="title" name="title" value="{{old('title') ? old('title') : $article->title}}">
