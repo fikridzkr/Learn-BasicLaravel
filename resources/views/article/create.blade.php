@@ -1,26 +1,22 @@
 @extends('layouts.app')
-
+@section('title')
+    Create Article
+@endsection
 
 @section('content')
 
 <h1 class="text-center">Buat Artikel Baru</h1>
 
-<form action="/article" class="m-5" method="POST">
+<form action="/article" class="m-5" method="POST" enctype="multipart/form-data">
     @csrf
+    <x-input field="title" label="judul" type="text" placeholder="Tulis Judul ..."/>
+    <x-textarea field="subject" label="Subject"/>
+
     <div class="form-group">
-      <label for="title">Judul</label>
-      <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}">
+      <label for="thumbnail">Upload Thumbnail</label>
+      <input type="file" class="form-control-file" id="thumbnail" name="thumbnail">
     </div>
-    @error('title')
-      <div class="alert alert-danger mt-2">{{ $message }}</div>
-    @enderror
-    <div class="form-group">
-      <label for="subject">Subject</label>
-      <textarea name="subject" id="subject" rows="3" class="form-control">{{old('subject')}}</textarea>
-    </div>
-    @error('subject')
-        <div class="alert alert-danger mt-2">{{ $message }}</div>
-    @enderror
+
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 @endsection
