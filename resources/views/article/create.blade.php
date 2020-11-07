@@ -11,11 +11,8 @@
     @csrf
     <x-input field="title" label="judul" type="text" placeholder="Tulis Judul ..."/>
     <x-textarea field="subject" label="Subject"/>
+    <x-inputfile />
 
-    <div class="form-group">
-      <label for="thumbnail">Upload Thumbnail</label>
-      <input type="file" class="form-control-file" id="thumbnail" name="thumbnail">
-    </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

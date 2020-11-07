@@ -28,9 +28,18 @@ class ArticleController extends Controller
 
     public function store(Request $request){
         $request->validate([
+            'thumbnail' =>  'mimes:jpeg,bmp,png,jpg,svg',
             'title' => 'required|max:255|min:5',
             'subject' => 'required|min:10',
         ]);
+
+        $imgName = null;
+        if($request->thumbnail){
+            $imgName = $request->thumbnail->getClientOriginalName() . '-' . time() . '.' . $request->thumbnail->extension();
+
+        $request->thumbnail->move(public_path('image'),$imgName);
+        };
+
         // $article = new Article;
         // $article->title = $request->title;
         // $article->subject = $request->subject;
@@ -39,7 +48,8 @@ class ArticleController extends Controller
         Article::create([
         'title' => $request->title,
         'slug' => Str::slug($request->title , '-'),
-        'subject' => $request->subject
+        'subject' => $request->subject,
+        'thumbnail' => $imgName
         ]);
 
         return redirect('/article');
@@ -56,9 +66,18 @@ class ArticleController extends Controller
             'subject' => 'required|min:10',
         ]);
 
+        $imgName = null;
+        if($request->thumbnail){
+            $imgName = $request->thumbnail->getClientOriginalName() . '-' . time() . '.' . $request->thumbnail->extension();
+
+        $request->thumbnail->move(public_path('image'),$imgName);
+        };
+
+
         Article::find($id)->update([
         'title' => $request->title,
-        'subject' => $request->subject
+        'subject' => $request->subject,
+        'thumbnail' => $imgName
         ]);
         return redirect('/article');
     }
